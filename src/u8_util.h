@@ -27,6 +27,10 @@ struct u8_state {
 };
 typedef struct u8_state u8_state_t;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 void u8_state_init(u8_state_t *state);
 int u8_state_decrement(const u8_state_t *state);
 int u8_state_increment(const u8_state_t *state);
@@ -35,5 +39,9 @@ int u8_state_peek(u8_state_t *state);
 void u8_state_push(u8_state_t *state, int ix);
 int u8_state_pop(u8_state_t *state);
 uint32_t u8_nextchar(const char *s, struct u8_state *state);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* u8_util_h */
