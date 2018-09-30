@@ -124,7 +124,7 @@ void pinyin_next_word(const char *s, char *word, int *tone, u8_state_t *state) {
   enum e_pos {initial, vowels, final_n, final_g, g_pending} pos = initial;
   
   for (;;) {
-    unsigned char ch = tolower(pinyin_normalized_char(u8_nextchar(s, state), &next_tone));
+    unsigned char ch = utf8proc_tolower(pinyin_normalized_char(u8_nextchar(s, state), &next_tone));
     if (!ch || ch=='\'' || ch==' ') break;
     switch (pos) {
       case initial:
