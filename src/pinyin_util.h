@@ -20,10 +20,18 @@ limitations under the License.
 #include <utf8proc.h>
 #include "u8_util.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 int pinyin_subscript(uint32_t digit);
 int homonym_frequency(const char *word, u8_state_t *state);
 unsigned char pinyin_normalized_char(uint32_t ch, int *tone);
 int pinyin_ordinal(uint32_t ch, utf8proc_bool ignore_umlaut);
 void pinyin_next_word(const char *s, char *word, int *tone, u8_state_t *state);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* pinyin_util_h */
