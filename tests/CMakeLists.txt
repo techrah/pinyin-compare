@@ -24,7 +24,29 @@ add_subdirectory(${CMAKE_BINARY_DIR}/googletest-src
                  EXCLUDE_FROM_ALL)
 
 # Configure tests
-file(GLOB SOURCES "*.cpp")
-add_executable(testApp ${SOURCES})
-target_link_libraries(testApp pinyincompare gtest_main)
-add_test(NAME test1 COMMAND testApp)
+#file(GLOB SOURCES "*.cpp")
+#add_executable(test_app ${SOURCES})
+
+add_executable(test_a test_a.cpp)
+target_link_libraries(test_a pinyincompare gtest_main)
+add_test(NAME test_a COMMAND test_a)
+
+add_executable(test_e test_e.cpp)
+target_link_libraries(test_e pinyincompare gtest_main)
+add_test(NAME test_e COMMAND test_e)
+
+add_executable(test_i test_i.cpp)
+target_link_libraries(test_i pinyincompare gtest_main)
+add_test(NAME test_i COMMAND test_i)
+
+add_executable(test_o test_o.cpp)
+target_link_libraries(test_o pinyincompare gtest_main)
+add_test(NAME test_o COMMAND test_o)
+
+add_executable(test_u test_u.cpp)
+target_link_libraries(test_u pinyincompare gtest_main)
+add_test(NAME test_u COMMAND test_u)
+
+add_executable(test_u_diaeresis test_u_diaeresis.cpp)
+target_link_libraries(test_u_diaeresis pinyincompare gtest_main)
+add_test(NAME test_u_diaeresis COMMAND test_u_diaeresis)
