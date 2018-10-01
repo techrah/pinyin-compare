@@ -19,10 +19,17 @@ limitations under the License.
 
 #include "u8_util.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+	
 void u8_state_init(u8_state_t *state);
 u_int32_t u8_nextchar(const char *s, struct u8_state *state);
 void pinyin_next_word(const char *s, char *word, int *tone, u8_state_t *state);
 int pinyin_compare(void* data, int l1, const void* s1, int l2, const void* s2);
 int pinyin_exact_compare(void* data, int l1, const void* s1, int l2, const void* s2);
 
+#ifdef __cplusplus
+}
+#endif
 #endif /* pinyin_compare_h */

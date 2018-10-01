@@ -28,7 +28,7 @@ int pinyin_compare(void* data, int l1, const void* s1, int l2, const void* s2) {
   u8_state_t state1, state2;
   u8_state_init(&state1);
   u8_state_init(&state2);
-  
+
   int hf1 = homonym_frequency(s1, &state1);
   int hf2 = homonym_frequency(s2, &state2);
 
@@ -41,7 +41,7 @@ int pinyin_compare(void* data, int l1, const void* s1, int l2, const void* s2) {
         ch1 = (unsigned char)NULL;
         break;
       }
-      ch1 = tolower(pinyin_normalized_char(u8_nextchar(s1, &state1), &tone1));
+      ch1 = utf8proc_tolower(pinyin_normalized_char(u8_nextchar(s1, &state1), &tone1));
       count1 += u8_state_last_delta(&state1);
     } while (ch1 && ((ch1 >= '\x01' && ch1 <= '\x05') || isseparator(ch1)));
 
@@ -50,7 +50,7 @@ int pinyin_compare(void* data, int l1, const void* s1, int l2, const void* s2) {
         ch2 = (unsigned char)NULL;
         break;
       }
-      ch2 = tolower(pinyin_normalized_char(u8_nextchar(s2, &state2), &tone2));
+      ch2 = utf8proc_tolower(pinyin_normalized_char(u8_nextchar(s2, &state2), &tone2));
       count2 += u8_state_last_delta(&state2);
     } while (ch2 && ((ch2 >= '\x01' && ch2 <= '\x05') || isseparator(ch2)));
 

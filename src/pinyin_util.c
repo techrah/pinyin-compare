@@ -36,7 +36,7 @@ int pinyin_subscript(uint32_t digit) {
 int homonym_frequency(const char *word, u8_state_t *state) {
   uint32_t aChar;
   int units = 0, tens = 0;
-  
+
   // First digit
   aChar = u8_nextchar(word, state);
   tens = pinyin_subscript(aChar);
@@ -45,7 +45,7 @@ int homonym_frequency(const char *word, u8_state_t *state) {
     // everything else equal, no homonym freq. < zero HF.
     return -1;
   }
-  
+
   // second digit
   aChar = u8_nextchar(word, state);
   units = pinyin_subscript(aChar);
@@ -71,7 +71,7 @@ unsigned char pinyin_normalized_char(uint32_t ch, int *tone) {
     0x006F, 0x014D, 0x00F3, 0x01D2, 0x00F2, 0x1ECD, // o
     0x0055, 0x016A, 0x00DA, 0x01D3, 0x00D9, 0x1EE4, // U
     0x0075, 0x016B, 0x00FA, 0x01D4, 0x00F9, 0x1EE5, // u
-    0x00DC, 0x01D5, 0x01D7, 0x01D9, 0x01D8, 0x01D8, // Ü
+    0x00DC, 0x01D5, 0x01D7, 0x01D9, 0x01DB, 0x01DB, // Ü
     0x00FC, 0x01D6, 0x01D8, 0x01DA, 0x01DC, 0x01DC, // ü
     // tones by themselves, e.g.: ụ̌ is represented as ụ (0x1EE5) +  ̌ (0x30C)
     0x0001, 0x0304, 0x0304, 0x0304, 0x0304, 0x0304, // 1st tone
@@ -106,14 +106,14 @@ int pinyin_ordinal(uint32_t ch, utf8proc_bool ignore_umlaut) {
     0xFC, 0x1D6, 0x1D8, 0x1DA, 0x1DC, // ü
     'v', 'w', 'x', 'y', 'z'
   };
-  
+
   for (int i = 0; i < sizeof(chs)/sizeof(uint32_t); i++) {
     if (chs[i] == ch) {
-      if (ignore_umlaut && i==46) i=41;
+      if (ignore_umlaut && i >= 46 && i <= 50) return i - 5;
       return i;
     }
   }
-  
+
   return -1;
 }
 
@@ -122,9 +122,9 @@ void pinyin_next_word(const char *s, char *word, int *tone, u8_state_t *state) {
   *tone = 0;
   int next_tone = 0;
   enum e_pos {initial, vowels, final_n, final_g, g_pending} pos = initial;
-  
+
   for (;;) {
-    unsigned char ch = tolower(pinyin_normalized_char(u8_nextchar(s, state), &next_tone));
+    unsigned char ch = utf8proc_tolower(pinyin_normalized_char(u8_nextchar(s, state), &next_tone));
     if (!ch || ch=='\'' || ch==' ') break;
     switch (pos) {
       case initial:
@@ -141,13 +141,13 @@ void pinyin_next_word(const char *s, char *word, int *tone, u8_state_t *state) {
         }
       case vowels:
         // final, one or more consecutive vowels, only one tone marked
-        
+
         // tone separated from vowel
         if (ch >= 01 && ch <= 0x4) {
           next_tone = ch;
           ch = '\0';
         }
-        
+
         if (isconsonant(ch)) pos = final_n; // fall through
         else if (isvowel(ch) || !ch /* special case from above */) {
           if (!*tone || (*tone && !next_tone)) {
