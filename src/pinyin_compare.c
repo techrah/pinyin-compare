@@ -77,8 +77,8 @@ int pinyin_compare(void* data, int l1, const void* s1, int l2, const void* s2) {
     // We're comparing pure string w/o tones. Any difference, we're done.
     if (result) goto bail;
 
-    // Keep track of first tone difference. May use later.
-    if (!result_tone) result_tone = tone1 - tone2;
+    // Keep track of tone difference. May use later.
+    result_tone = tone1 - tone2;
   }
 
   // if we get here, normalized strings are exactly the same

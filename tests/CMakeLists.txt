@@ -50,3 +50,11 @@ add_test(NAME test_u COMMAND test_u)
 add_executable(test_u_diaeresis test_u_diaeresis.cpp)
 target_link_libraries(test_u_diaeresis pinyincompare gtest_main)
 add_test(NAME test_u_diaeresis COMMAND test_u_diaeresis)
+
+add_executable(test_comm_trans test_comm_trans.cpp test.cpp)
+target_link_libraries(test_comm_trans pinyincompare gtest_main)
+add_test(NAME test_comm_trans COMMAND test_comm_trans)
+
+add_executable(test_misc test_misc.cpp)
+target_link_libraries(test_misc pinyincompare gtest_main)
+add_test(NAME test_misc COMMAND test_misc)
