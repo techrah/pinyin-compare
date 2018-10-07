@@ -8,8 +8,8 @@ It is important to note that most of the time you may _not_ want to use strict t
 ### Normalized sorting
 For the most part, sorting is based on the toneless versions of the word. That is, the tone marks are ignored.
 
-Mà
-Mán
+    Mà
+    Mán
 
 Mà < Mán, because Ma < Man. Here, tone is ignored. This makes sense when looking for words in an index. One expects "ma" to come before "man". This is especially true for compound words or phrases.
 
@@ -36,6 +36,29 @@ NOTE: Even though a toneless word is sometimes classified as a 5th tone, its ord
     Māma
 
 Strictly speaking, in this example, "ma" as a standalone pinyin word without tone doesn't exist. You'll generally find it at the end of a compound word such as "Māma" in which case it'll be placed after "Mà" based on normalized alphabetic order.
+
+### Homonym Frequency
+If two words are identical, an cardinal prefix can break the tie to give them a specific order. This is only useful if these otherwise identical pinyin words are associated to different Chinese characters, different entries in a database, etc. The intention of these "homonym frequency" prefixes are to mark which corresponding Chinese characters are used more frequently
+
+    ¹shí 十
+    ²shí 时
+    ³shí 石
+    ⁴shí 食
+
+In Unicode lingo, these characters are SUBSCRIPT ONE, SUBSCRIPT TWO, etc. For numbers larger than 9, use a combination of the single digits. For example, for 10, use SUBSCRIPT ONE followed by SUBSCRIPT 0.
+
+Subscript | Unicode ID
+---|---
+0|0x2070
+1|0x00B9
+2|0x00B2
+3|0x00B3
+4|0x2074
+5|0x2075
+6|0x2076
+7|0x2077
+8|0x2078
+9|0x2079
 
 ## Building & Installing
 Tarballs are not yet provided so you'll need to build it yourself. This project was developed under macOS so no guarantees on other platforms. However, it uses the GNU Build System for cross-platform building. It is also configured for CMake, if that works better for you.
@@ -79,7 +102,7 @@ Public APIs are located in `pinyin_compare.h`. The main compare function is `pin
 - **s2** - Second string to compare in UTF-8 format.
 
 ## Using in SQLite 3
-This is an example of using from SQLite CLI
+This is an example of pinyin collation from the SQLite CLI
 
 ```
 > .open /path/to/database.db
