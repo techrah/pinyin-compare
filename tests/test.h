@@ -67,4 +67,9 @@ __inline int _pinyin_compare(const char *s1, const char* s2) {
   return pinyin_compare(0, strlen(s1), s1, strlen(s2), s2);
 }
 
+void test_commutative_eq(const char *s1, const char *s2);
+void test_transitive_eq(const char *s1, const char *s2, const char *s3);
+void test_commutative_compare(const char *s1, const char *s2);
+void test_transitive_compare(const char *s1, const char *s2, const char *s3);
+
 #endif
