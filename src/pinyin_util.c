@@ -60,7 +60,8 @@ int homonym_frequency(const char *word, u8_state_t *state) {
 unsigned char pinyin_normalized_char(uint32_t ch, int *tone) {
   static const unsigned short width = 6;
   static const uint32_t chs[] = {
-    // letters with tones
+    // vowels with tones and stand-alone tone markers
+    // toneless | tone 1 | tone 2 | tone 3 | tone 4 | tone sandhi marker
     0x0041, 0x0100, 0x00C1, 0x01CD, 0x00C0, 0x1EA0, // A
     0x0061, 0x0101, 0x00E1, 0x01CE, 0x00E0, 0x1EA1, // a
     0x0045, 0x0112, 0x00C9, 0x011A, 0x00C8, 0x1EB8, // E
@@ -74,16 +75,20 @@ unsigned char pinyin_normalized_char(uint32_t ch, int *tone) {
     0x00DC, 0x01D5, 0x01D7, 0x01D9, 0x01DB, 0x01DB, // Ü
     0x00FC, 0x01D6, 0x01D8, 0x01DA, 0x01DC, 0x01DC, // ü
     // tones by themselves, e.g.: ụ̌ is represented as ụ (0x1EE5) +  ̌ (0x30C)
-    0x0001, 0x0304, 0x0304, 0x0304, 0x0304, 0x0304, // 1st tone
-    0x0002, 0x0301, 0x0301, 0x0301, 0x0301, 0x0301, // 2nd tone
-    0x0003, 0x030C, 0x030C, 0x030C, 0x030C, 0x030C, // 3rd tone
-    0x0004, 0x0300, 0x0300, 0x0300, 0x0300, 0x0300  // 4rd tone
+    0x0001, 0x0304, 0x0000, 0x0000, 0x0000, 0x0000, // 1st tone
+    0x0002, 0x0000, 0x0301, 0x0000, 0x0000, 0x0000, // 2nd tone
+    0x0003, 0x0000, 0x0000, 0x030C, 0x0000, 0x0000, // 3rd tone
+    0x0004, 0x0000, 0x0000, 0x0000, 0x0300, 0x0000  // 4rd tone
   };
   for (int i = 0; i < sizeof(chs)/sizeof(uint32_t); i++) {
     if (chs[i] == ch) {
       int ix = i / width * width;
       if (tone) *tone = i % width;
-      if (*tone == 5) *tone = 0; // col 5 is for vowels with . underneath, not a tone.
+
+      // col 5 is for vowels with . underneath,
+      // or stand-alone tones, not a tone.
+      if (*tone == 5) *tone = 0;
+
       return chs[ix];
     }
   }

@@ -28,6 +28,18 @@ TEST(TestMisc, TestToneVsNoTone) {
   ASSERT_EQ(_pinyin_compare("wucai", "wǔcǎi*"), 0);
 }
 
+TEST(TestMisc, TestOneOneMarker) {
+  ASSERT_EQ(_pinyin_compare("bụ̀duì", "bùduì"), 0);
+}
+
+TEST(TestMisc, TestTwoThreeMarker) {
+  ASSERT_EQ(_pinyin_compare("wǔcǎi", "wụ̌cǎi"), 0);
+}
+
+TEST(TestMisc, TestApostrophe) {
+  ASSERT_EQ(_pinyin_compare("Xī'ān", "xīān"), 0);
+}
+
 TEST(TestMisc, TestUppercase) {
   ASSERT_EQ(_pinyin_compare("XIAN", "xian"), 0);
   ASSERT_EQ(_pinyin_compare("E", "e"), 0);
