@@ -78,12 +78,20 @@ int pinyin_compare(void* data, int l1, const void* s1, int l2, const void* s2) {
     if (result) goto bail;
 
     // Keep track of tone difference. May use later.
-    result_tone = tone1 - tone2;
+    // For every pair of tones, calculate difference, until first diff.
+    if (!result_tone && tone1 && tone2) {
+      result_tone = tone1 - tone2;
+      tone1 = 0;
+      tone2 = 0;
+    };
   }
 
   // if we get here, normalized strings are exactly the same
 
-  // Diff. in tones?
+  // If at least one tone stayed at zero, force tone difference calc. now
+  if (!result_tone) result_tone = tone1 - tone2;
+
+  // Tone difference to be tie breaker?
   if (!result) result = result_tone;
 
   // otherwise use homonym freq.
