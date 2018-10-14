@@ -2,6 +2,8 @@
 ## Introduction
 This library sorts UTF-8 encoded [Hanyu Pinyin](https://en.wikipedia.org/wiki/Pinyin). For SQLite, the term "collation" is used. This library provides the function prototype needed for using its custom collation feature. It is able to handle the diacritical tone marks used in pinyin. The convention is to use the MACRON, ACUTE, CARON and GRAVE versions of the vowels to represent the four tones used in Mandarin Chinese.
 
+The sort order is based on the [ABC dictionaries](http://wenlin.com/abc). You may also be interested in [a similar implementation in PERL](http://wenlin.com/pysort.htm).
+
 ## Sorting Algorithm
 It is important to note that most of the time you may _not_ want to use strict tone order. These exceptions are built into the algorithms. Here are some examples to illustrate.
 
