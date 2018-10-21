@@ -1,2 +1,4 @@
 autom4te.cache/
 build/
+_site/
+*.scssc
