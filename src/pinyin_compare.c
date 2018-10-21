@@ -20,6 +20,20 @@ limitations under the License.
 #include "pinyin_util.h"
 #include "pinyin_compare.h"
 
+unsigned char process_next_char(const void* s, const int l, unsigned int *count, struct u8_state *state, int *tone) {
+  unsigned char ch;
+  do {
+    if (*count >= l) {
+      ch = (unsigned char)NULL;
+      break;
+    }
+    ch = utf8proc_tolower(pinyin_normalized_char(u8_nextchar(s, state), tone));
+    *count += u8_state_last_delta(state);
+  } while (ch && ((ch >= '\x01' && ch <= '\x05') || isseparator(ch)));
+
+  return ch;
+}
+
 int pinyin_compare(void* data, int l1, const void* s1, int l2, const void* s2) {
   int result = 0, result_tone = 0, result_umlaut = 0;
   unsigned char ch1, ch2;
@@ -39,23 +53,8 @@ int pinyin_compare(void* data, int l1, const void* s1, int l2, const void* s2) {
   unsigned int count2 = u8_state_last_delta(&state2);
 
   for (;;) {
-    do {
-      if (count1 >= _l1) {
-        ch1 = (unsigned char)NULL;
-        break;
-      }
-      ch1 = utf8proc_tolower(pinyin_normalized_char(u8_nextchar(s1, &state1), &tone1));
-      count1 += u8_state_last_delta(&state1);
-    } while (ch1 && ((ch1 >= '\x01' && ch1 <= '\x05') || isseparator(ch1)));
-
-    do {
-      if (count2 >= _l2) {
-        ch2 = (unsigned char)NULL;
-        break;
-      }
-      ch2 = utf8proc_tolower(pinyin_normalized_char(u8_nextchar(s2, &state2), &tone2));
-      count2 += u8_state_last_delta(&state2);
-    } while (ch2 && ((ch2 >= '\x01' && ch2 <= '\x05') || isseparator(ch2)));
+    ch1 = process_next_char(s1, _l1, &count1, &state1, &tone1);
+    ch2 = process_next_char(s2, _l2, &count2, &state2, &tone2);
 
     // Reached end of word and haven't exited loop yet?
     if (!ch1 && !ch2) {
