@@ -44,7 +44,7 @@ int pinyin_compare(void* data, int l1, const void* s1, int l2, const void* s2) {
   u8_state_init(&state2);
 
   int _l1 = l1 < 0 ? strlen(s1) : l1;
-  int _l2 = l1 < 0 ? strlen(s2) : l2;
+  int _l2 = l2 < 0 ? strlen(s2) : l2;
 
   int hf1 = homonym_frequency(s1, &state1);
   int hf2 = homonym_frequency(s2, &state2);

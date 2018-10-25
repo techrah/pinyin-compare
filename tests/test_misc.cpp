@@ -57,3 +57,11 @@ TEST(TestMisc, TestUmlaut) {
   ASSERT_LT(_pinyin_compare("lǚ", "luguan"), 0);
   ASSERT_LT(_pinyin_compare("nǜ", "nuǎn"), 0);
 }
+
+TEST(TestMisc, TestAutoStrLen) {
+  ASSERT_LT(pinyin_compare(NULL, 4, "abcde", 5, "abcde"), 0);
+  ASSERT_GT(pinyin_compare(NULL, 5, "abcde", 4, "abcde"), 0);
+  ASSERT_EQ(pinyin_compare(NULL, 5, "abcde", -1, "abcde"), 0);
+  ASSERT_EQ(pinyin_compare(NULL, -1, "abcde", 5, "abcde"), 0);
+  ASSERT_EQ(pinyin_compare(NULL, -1, "abcde", -1, "abcde"), 0);
+}
