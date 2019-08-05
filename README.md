@@ -80,7 +80,14 @@ $ make install
 ```
 
 ## Building with CMake
-You will need to have cmake installed. From the project root directory:
+You will need to have cmake installed. Specify where your system include and library paths are for utf8proc.
+
+```
+$ export CFLAGS=-isystem\ /usr/local/include
+$ export LD_LIBRARY_PATH=/usr/local/lib
+```
+
+Then, from the project root directory:
 
 ```
 $ mkdir build
