@@ -34,6 +34,11 @@ unsigned char process_next_char(const void* s, const int l, unsigned int *count,
   return ch;
 }
 
+#ifdef _WIN32
+__declspec(dllexport)
+#else
+__attribute__ ((visibility ("default")))
+#endif
 int pinyin_compare(void* data, int l1, const void* s1, int l2, const void* s2) {
   int result = 0, result_tone = 0, result_umlaut = 0;
   unsigned char ch1, ch2;

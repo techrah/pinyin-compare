@@ -58,3 +58,7 @@ add_test(NAME test_comm_trans COMMAND test_comm_trans)
 add_executable(test_misc test_misc.cpp)
 target_link_libraries(test_misc pinyincompare gtest_main)
 add_test(NAME test_misc COMMAND test_misc)
+
+add_executable(test_latin_compare test_latin_compare.cpp)
+target_link_libraries(test_latin_compare pinyincompare gtest_main)
+add_test(NAME test_latin_compare COMMAND test_latin_compare)

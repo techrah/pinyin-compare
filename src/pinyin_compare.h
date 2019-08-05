@@ -24,6 +24,7 @@ extern "C" {
 #endif
 
 int pinyin_compare(void* data, int l1, const void* s1, int l2, const void* s2);
+int latin_compare(void* data, int l1, const void* s1, int l2, const void* s2);
 
 #ifdef __cplusplus
 }
