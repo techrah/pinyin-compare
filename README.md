@@ -37,7 +37,7 @@ NOTE: Even though a toneless word is sometimes classified as a 5th tone, its ord
     Mà (4th tone)
     Māma
 
-Strictly speaking, in this example, "ma" as a standalone pinyin word without tone doesn't exist. You'll generally find it at the end of a compound word such as "Māma" in which case it'll be placed after "Mà" based on normalized alphabetic order.
+Strictly speaking, in this example, "ma" as a standalone pinyin word without tone doesn't exist. You'll generally find it at the end of a compound word such as "Māma" in which case it'll be placed after "Mà" based on standard alphabetic order.
 
 ### Homonym Frequency
 If two words are identical, a cardinal prefix can break the tie to give them a specific order. This is only useful if these otherwise identical pinyin words are associated to different Chinese characters, different entries in a database, etc. The intention of these "homonym frequency" prefixes are to mark which corresponding Chinese characters are used more frequently
@@ -63,7 +63,9 @@ Subscript | Unicode ID
 9|0x2079
 
 ## Building & Installing
-Tarballs are not yet provided so you'll need to build it yourself. This project was developed under macOS so no guarantees on other platforms. However, it uses the GNU Build System for cross-platform building. It is also configured for CMake, if that works better for you.
+Tarballs are not provided so you'll need to build it yourself. This project was developed under macOS so you'd need to adjust accordingly for other platforms. However, it uses the GNU Build System for cross-platform building. It is also configured for CMake, if that works better for you.
+
+NOTE: This library depends on utf8proc. You need to have this installed on your system and `utf8proc.h` needs to be locatable as a system header file. On macOS, you can install this via brew with `brew install utf8proc`.
 
 ### Building with GNU Build Tools
 You will need to have autoconf, automake and libtool installed. From the project root directory:
@@ -83,7 +85,7 @@ You will need to have cmake installed. From the project root directory:
 ```
 $ mkdir build
 $ cd build
-$ ../cmake
+$ cmake ..
 $ make
 $ make test
 $ make install
