@@ -2,6 +2,7 @@ lib_LTLIBRARIES = libpinyincompare.la
 libpinyincompare_la_SOURCES = \
 	pinyin_compare.c \
 	pinyin_compare.h \
+	latin_compare.c \
 	pinyin_util.c \
 	pinyin_util.h \
 	u8_util.c \
