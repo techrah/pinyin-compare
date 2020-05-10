@@ -79,7 +79,7 @@ $ make
 $ make install
 ```
 
-## Building with CMake
+### Building with CMake
 You will need to have cmake installed. Specify where your system include and library paths are for utf8proc.
 
 ```
